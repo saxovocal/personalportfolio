@@ -1,0 +1,18 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+export async function getStaticPaths() {
+  return (await getCollection('projects')).map(project => ({ params: { slug: project.id }, props: { project } }));
+}
+const { project } = Astro.props;
+const { Content } = await render(project);
+---
+<Layout title={project.data.title} description={project.data.summary}>
+  <header class="container page-intro">
+    <div class="breadcrumb"><a href="/medicine/">Medicine & Science</a><span aria-hidden="true">/</span><a href="/projects/">Projects</a></div>
+    <span class="eyebrow">{project.data.theme}</span><h1>{project.data.title}</h1><p class="lede">{project.data.summary}</p>
+    <div class="project-meta"><span>Status: {project.data.status}</span><span>Research overview · No unverified findings</span></div>
+    <div class="tags">{project.data.methods.map(method => <span class="tag">{method}</span>)}</div>
+  </header>
+  <article class="container"><div class="prose"><Content /><a class="text-link" href="/projects/">Back to research projects</a></div></article>
+</Layout>

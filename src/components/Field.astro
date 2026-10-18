@@ -1,0 +1,8 @@
+---
+interface Props { name: string; label: string; type?: 'text' | 'email' | 'tel' | 'date' | 'time' | 'number' | 'textarea'; required?: boolean; options?: string[]; wide?: boolean; hint?: string; min?: string; max?: string; autocomplete?: string; }
+const { name, label, type = 'text', required = false, options, wide = false, hint, min, max, autocomplete } = Astro.props;
+---
+<div class:list={['field', {wide}]}>
+  <label for={name}>{label}{required ? ' *' : ' (optional)'} {hint && <span id={`${name}-hint`}>{hint}</span>}</label>
+  {options ? <select id={name} name={name} required={required} aria-describedby={hint ? `${name}-hint` : undefined}><option value="">Select an option</option>{options.map(option => <option value={option}>{option}</option>)}</select> : type === 'textarea' ? <textarea id={name} name={name} required={required} maxlength="4000" aria-describedby={hint ? `${name}-hint` : undefined} /> : <input id={name} name={name} type={type} required={required} min={min} max={max} autocomplete={autocomplete} maxlength={['text','email','tel'].includes(type) ? 250 : undefined} aria-describedby={hint ? `${name}-hint` : undefined} />}
+</div>

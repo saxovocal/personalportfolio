@@ -1,0 +1,11 @@
+---
+import { getCollection } from 'astro:content';
+const projects = (await getCollection('projects')).sort((a,b) => a.data.number.localeCompare(b.data.number));
+---
+<div class="project-list">
+  {projects.map(project => <a class="project-row" href={`/projects/${project.id}/`}>
+    <span class="project-number">{project.data.number}</span>
+    <div><span class="eyebrow">{project.data.theme}</span><h3>{project.data.title}</h3><p>{project.data.summary}</p></div>
+    <span class="row-arrow" aria-hidden="true"><svg class="arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 13L13 3M3 3H13V13" stroke="currentColor" stroke-width="1.2" /></svg></span>
+  </a>)}
+</div>

@@ -1,0 +1,9 @@
+---
+import data from '../data/publications.json';
+interface Publication { title: string; authors: string; journal: string; year: number; url: string; contribution?: string; }
+const entries = data.entries as Publication[];
+const years = [...new Set(entries.map(p => p.year))].sort((a,b) => b-a);
+---
+<div id="publications">
+  {entries.length === 0 ? <div class="notice"><p>{data.notice}</p><p>Titles, authors, journals, years, and DOI links will appear here, grouped by year. This section is a placeholder, not a complete bibliography.</p></div> : years.map(year => <section aria-label={`Publications in ${year}`}><h3 class="publications-year">{year}</h3>{entries.filter(p => p.year === year).map(p => <article class="publication"><h3><a href={p.url}>{p.title} <span aria-hidden="true"><svg class="arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 13L13 3M3 3H13V13" stroke="currentColor" stroke-width="1.2" /></svg></span></a></h3><p>{p.authors}</p><p><em>{p.journal}</em> · {p.year}{p.contribution && ` · ${p.contribution}`}</p><a class="text-link" href={p.url}>Read original publication <svg class="arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 13L13 3M3 3H13V13" stroke="currentColor" stroke-width="1.2" /></svg></a></article>)}</section>)}
+</div>

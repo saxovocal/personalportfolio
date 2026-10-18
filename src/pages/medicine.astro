@@ -1,0 +1,16 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageIntro from '../components/PageIntro.astro';
+import ProjectList from '../components/ProjectList.astro';
+import Publications from '../components/Publications.astro';
+---
+<Layout title="Medicine & Science" description="Wharton Chan's background in biochemistry, bat immunity, single-cell genomics, and clinical research as a junior doctor and clinician-scientist-in-training.">
+  <PageIntro eyebrow="01 / Medicine & Science" title="From scientific questions to human care." description="A clinician-scientist-in-training, interested in how careful observation and rigorous inquiry can help us understand biology and improve care." />
+  <div class="container">
+    <section class="split-content"><h2>Between the bench<br />and the bedside.</h2><div><p>Wharton graduated from the University of Oxford with an MBiochem in Molecular and Cellular Biochemistry, before completing an MD–PhD at Duke-NUS Medical School in Singapore.</p><p>His doctoral research focused on bat immunity and metabolism, with an emphasis on high-throughput approaches and single-cell transcriptomics. He currently works as a junior doctor while continuing clinical and genomics research.</p><p>His clinical training is ongoing. The questions that motivate his work span molecular mechanisms, population variation, and the patterns encountered in everyday care.</p></div></section>
+    <section class="split-content"><h2>Lines of inquiry.</h2><div class="tags"><span class="tag">Single-cell & high-throughput genomics</span><span class="tag">Immunology & host–pathogen interactions</span><span class="tag">Metabolism</span><span class="tag">Clinical analytics & patient safety</span><span class="tag">Population genetics</span><span class="tag">Translational research</span></div></section>
+    <section class="section-tight"><div class="section-header"><div><span class="eyebrow">Selected research</span><h2>Three threads of inquiry.</h2></div><a class="text-link" href="/projects/">All projects <svg class="arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 13L13 3M3 3H13V13" stroke="currentColor" stroke-width="1.2" /></svg></a></div><ProjectList /></section>
+    <section class="split-content"><div><span class="eyebrow">The bibliography</span><h2 style="margin-top:18px">Publications.</h2></div><Publications /></section>
+    <section class="split-content"><h2>Continue the conversation.</h2><div><p>For research collaborations and professional correspondence, please use the dedicated general enquiry channel. Do not send patient records or identifiable clinical information.</p><a class="text-link" href="/contact/">Research & professional enquiries <svg class="arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 13L13 3M3 3H13V13" stroke="currentColor" stroke-width="1.2" /></svg></a></div></section>
+  </div>
+</Layout>

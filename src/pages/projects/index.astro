@@ -1,0 +1,9 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PageIntro from '../../components/PageIntro.astro';
+import ProjectList from '../../components/ProjectList.astro';
+---
+<Layout title="Research Projects" description="Explore Wharton Chan's research themes: bat immunity and metabolism, inpatient hypoglycaemia, and HLA diversity in Singapore.">
+  <PageIntro eyebrow="A research notebook" title="Questions worth pursuing." description="Three themes connecting molecular biology, clinical patterns, and population diversity. Organized by the questions they ask, rather than the order they began." />
+  <section class="container section-tight" aria-label="Research themes"><ProjectList /><div class="notice">These project summaries describe research questions and approaches. Status, individual contributions, and outputs await author verification; unpublished findings are not presented as clinical conclusions.</div></section>
+</Layout>

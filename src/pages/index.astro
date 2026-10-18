@@ -1,0 +1,55 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ProjectList from '../components/ProjectList.astro';
+import SwingArt from '../components/SwingArt.astro';
+---
+<Layout title="Home">
+  <section class="container hero">
+    <div class="hero-copy">
+      <div class="eyebrow"><span class="small-rule" /> The art of listening. The science of care.</div>
+      <h1>Healing through<br />Medicine.<br />Connecting<br />through <em>Music.</em></h1>
+      <p>Wharton Chan is a junior doctor and clinician-scientist-in-training, as well as a jazz saxophonist and clarinetist. Born and raised in Hong Kong, he works at the intersection of clinical medicine, scientific research, and live performance.</p>
+      <div class="hero-actions"><a class="button" href="/medicine/">Read My Work <span aria-hidden="true"><svg class="arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 13L13 3M3 3H13V13" stroke="currentColor" stroke-width="1.2" /></svg></span></a><a class="button button-outline" href="/book/">Book a Performance <span aria-hidden="true"><svg class="arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 13L13 3M3 3H13V13" stroke="currentColor" stroke-width="1.2" /></svg></span></a></div>
+      <div class="hero-caption"><span class="status-dot" /> Based in Singapore · Curious by nature</div>
+    </div>
+    <div class="hero-art">
+      <div class="art-panel">
+        <span class="art-label">Medicine · Science · Swing</span>
+        <svg viewBox="0 0 440 490" fill="none" role="img" aria-label="Original illustration connecting scientific inquiry and the curves of a saxophone">
+          <circle cx="235" cy="192" r="130" stroke="#9aa88c" stroke-width=".8"/>
+          <circle cx="235" cy="192" r="103" stroke="#9aa88c" stroke-width=".8"/>
+          <path d="M97 327C197 272 288 288 376 327M98 345C198 290 288 306 376 345M98 363C198 308 288 324 376 363M98 381C198 326 288 342 376 381M98 399C198 344 288 360 376 399" stroke="#a9b59b"/>
+          <path d="M192 93C103 146 302 151 216 208C131 264 322 261 242 319" stroke="#768c6d" stroke-width="2"/>
+          <path d="M220 87C310 144 111 149 198 207C283 262 92 265 171 320" stroke="#768c6d" stroke-width="2"/>
+          <path d="M183 103L234 103M172 122L248 122M183 141L237 141M185 180L230 180M174 200L241 200M180 221L233 221M181 261L232 261M166 280L247 280M177 302L235 302" stroke="#768c6d"/>
+          <path d="M297 173L277 313C272 353 246 389 210 383C176 378 164 349 183 324L208 312L190 270C131 294 125 344 150 382C180 430 253 440 291 389C315 358 318 333 323 302L337 190" fill="#263b32"/>
+          <path d="M296 174L320 162L345 170L355 157" stroke="#263b32" stroke-width="11"/>
+          <path d="M294 215L322 221M290 243L318 249M285 274L312 280M280 304L306 310" stroke="#c4b68b" stroke-width="5"/>
+          <circle cx="300" cy="216" r="6" fill="#b79a62"/><circle cx="295" cy="246" r="6" fill="#b79a62"/><circle cx="290" cy="277" r="6" fill="#b79a62"/>
+          <path d="M165 288L200 274L187 243L150 256Z" fill="#b79a62"/>
+          <circle cx="105" cy="211" r="3" fill="#b79a62"/><circle cx="331" cy="124" r="4" fill="#b79a62"/><path d="M100 212L142 180M326 124L287 105" stroke="#b79a62"/>
+        </svg>
+      </div>
+      <div class="art-disc"><span>A life between</span><strong>science<br />& swing</strong><span>Wharton Chan</span></div>
+      <div class="art-note">An illustrated overture · Portrait & performance photographs to follow</div>
+    </div>
+  </section>
+  <div class="container intro-strip">
+    <div><span class="strip-num">01</span><div><h2>THE CLINICIAN & SCIENTIST</h2><p>Questions that move care forward.</p></div></div>
+    <div><span class="strip-num">02</span><div><h2>THE MUSICIAN</h2><p>A conversation, one chorus at a time.</p></div></div>
+    <div><span class="strip-num">03</span><div><h2>THE MENTOR</h2><p>Clarity for the path ahead.</p></div></div>
+  </div>
+  <section class="section container">
+    <div class="section-header"><div><span class="eyebrow">01 / Medicine & Science</span><h2>Led by curiosity.<br />Grounded in evidence.</h2></div><p>From single cells to clinical patterns: exploring genomics, immunology, clinical analytics, and translational medicine.</p></div>
+    <ProjectList />
+    <a class="text-link section-link" href="/medicine/">Explore Medicine & Science <span aria-hidden="true"><svg class="arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 13L13 3M3 3H13V13" stroke="currentColor" stroke-width="1.2" /></svg></span></a>
+  </section>
+  <section class="music-feature">
+    <div class="container">
+      <div class="music-art"><SwingArt /><span class="media-tag">The Marmalade Jammers · Film to follow</span></div>
+      <div><span class="eyebrow">02 / Music & Performance</span><h2>A little swing.<br />A lot of conversation.</h2><p>Alto saxophone. Clarinet. Music made for movement. As a frontline musician with The Marmalade Jammers and a Lindy Hop dancer, Wharton approaches swing from both sides of the bandstand.</p><p>Danceable jazz, shared with the room.</p><a class="text-link" href="/music/#performances">Watch Performances <span aria-hidden="true"><svg class="arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 13L13 3M3 3H13V13" stroke="currentColor" stroke-width="1.2" /></svg></span></a><a class="text-link" href="/book/">Book a Performance <span aria-hidden="true"><svg class="arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 13L13 3M3 3H13V13" stroke="currentColor" stroke-width="1.2" /></svg></span></a></div>
+    </div>
+  </section>
+  <section class="container section admissions-preview"><div><span class="eyebrow">03 / Admissions & Mentorship</span><h2>Good questions.<br />Meaningful directions.</h2></div><div><p>Choosing a course is also choosing a way of thinking. Through admissions coaching and academic mentorship, Wharton helps students explore their interests, find their voice, and make decisions they can stand behind.</p><a class="text-link" href="/admissions/">Explore Coaching & Mentorship <span aria-hidden="true"><svg class="arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 13L13 3M3 3H13V13" stroke="currentColor" stroke-width="1.2" /></svg></span></a></div></section>
+  <section class="container quote-section"><div class="eyebrow"><span class="small-rule" /> A guiding philosophy <span class="small-rule" /></div><blockquote>“To touch the hearts of many,<br />to heal some, and to cure a few.”</blockquote></section>
+</Layout>

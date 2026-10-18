@@ -1,0 +1,6 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageIntro from '../components/PageIntro.astro';
+const enabled = import.meta.env.PUBLIC_FORMS_ENABLED === 'true';
+---
+<Layout title="Enquiry Confirmation" description="Confirmation information for enquiries sent through Wharton Chan's portfolio."><PageIntro eyebrow="Enquiries" title={enabled ? 'Thank you for reaching out.' : 'Enquiries are not open yet.'} description={enabled ? 'If you arrived here after submitting a form, your enquiry has been sent for review. A booking or coaching arrangement is confirmed only through further correspondence.' : 'The form backend has not yet been verified. No submission can be confirmed from this page.'}><a class="text-link" href="/">Return home <svg class="arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 13L13 3M3 3H13V13" stroke="currentColor" stroke-width="1.2" /></svg></a></PageIntro></Layout>

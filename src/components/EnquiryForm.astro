@@ -1,0 +1,81 @@
+---
+import Field from './Field.astro';
+interface Props { kind: 'music' | 'admissions'; }
+const { kind } = Astro.props;
+const isMusic = kind === 'music';
+const name = isMusic ? 'performance-enquiry' : 'admissions-enquiry';
+const enabled = import.meta.env.PUBLIC_FORMS_ENABLED === 'true';
+---
+<div class="form-layout container">
+  <div>
+    {!enabled && <div class="notice" role="status"><strong>Enquiries are not open yet.</strong> This form is a preview. Submissions are disabled until the Netlify form backend and delivery have been tested. Please return once a verified contact channel is available.</div>}
+    <p style="font-size:.75rem;color:var(--muted)">Fields marked * are required. Please share only the information needed to discuss your enquiry.</p>
+    <form name={name} method="POST" action="/thank-you/" data-netlify="true" netlify-honeypot="website" data-enquiry-form data-enabled={String(enabled)}>
+      <input type="hidden" name="form-name" value={name} />
+      <p class="honeypot"><label>Leave this field empty: <input name="website" tabindex="-1" autocomplete="off" /></label></p>
+      <fieldset class="form-section"><legend>{isMusic ? '01 / Your details' : '01 / About you'}</legend><div class="form-grid">
+        <Field name={isMusic ? 'client-name' : 'applicant-name'} label={isMusic ? 'Client name' : 'Applicant name'} required autocomplete="name" />
+        <Field name="email" label={isMusic ? 'Email address' : 'Contact email'} type="email" required autocomplete="email" />
+        {isMusic && <Field name="phone" label="Phone number" type="tel" autocomplete="tel" />}
+        {!isMusic && <Field name="educational-stage" label="Current educational stage" required options={['Secondary school', 'Pre-university / sixth form', 'Undergraduate', 'Graduate', 'Working professional', 'Other']} />}
+      </div></fieldset>
+      {isMusic ? <>
+        <fieldset class="form-section"><legend>02 / The occasion</legend><div class="form-grid">
+          <Field name="booking-type" label="Booking type" required wide options={['Wharton (individual performance)', 'The Marmalade Jammers (full band)', 'Other / discuss configuration']} />
+          <Field name="occasion" label="Occasion" required options={['Swing dance', 'Wedding', 'Corporate event', 'Private function', 'Other']} />
+          <Field name="event-date" label="Event date" type="date" required />
+          <Field name="start-time" label="Start time" type="time" required hint="Local time at the event location" />
+          <Field name="location" label="Event location" required hint="Venue, city, and country" />
+          <Field name="sets" label="Number of 30-minute sets" type="number" min="1" max="20" required />
+          <Field name="dancing" label="Will dancing be involved?" required options={['Yes', 'No', 'Not sure yet']} />
+        </div></fieldset>
+        <fieldset class="form-section"><legend>03 / Set the scene</legend><div class="form-grid">
+          <Field name="atmosphere" label="Preferred genres or musical atmosphere" wide />
+          <Field name="event-brief" label="Additional event brief" type="textarea" wide hint="Audience, venue arrangements, or any questions" />
+          <Field name="budget" label="Budget range" wide hint="Please include the currency" />
+        </div></fieldset>
+      </> : <>
+        <fieldset class="form-section"><legend>02 / Your direction</legend><div class="form-grid">
+          <Field name="service" label="Coaching or mentorship" required options={['Admissions coaching', 'Academic mentorship', 'Not sure — let’s discuss']} />
+          <Field name="pathway" label="Application pathway" required options={['UK undergraduate', 'UK medical school', 'US medical school', 'Graduate school', 'Exploring options', 'Other']} />
+          <Field name="intended-field" label="Intended course or field" wide />
+          <Field name="institutions" label="Target institutions, if known" wide />
+          <Field name="application-year" label="Expected application year" hint="A year or ‘not yet decided’" required />
+          <Field name="consultation-format" label="Preferred consultation format" required options={['Online', 'In person in Singapore, if available', 'Hybrid', 'No preference']} />
+          <Field name="services-required" label="Services required" required wide hint="For example: strategy, statements, interviews, or guided exploration" />
+          <Field name="goals" label="Goals and challenges" required type="textarea" wide hint="Do not include medical records, identity documents, or sensitive personal records." />
+        </div></fieldset>
+      </>}
+      <label class="checkbox-label"><input type="checkbox" name="consent" value="agreed" required /><span>I consent to the use of these details to respond to and manage this enquiry, as described in the <a href="/privacy/" style="text-decoration:underline">privacy notice</a>. {isMusic ? 'For full-band enquiries, I understand that relevant event details may be shared with the band leadership to coordinate arrangements.' : 'I understand that this is an enquiry and does not guarantee admission or confirm a coaching arrangement.'}</span></label>
+      <button class="button" type="submit" disabled={!enabled}>{enabled ? 'Send enquiry' : 'Submissions not yet enabled'} <span aria-hidden="true"><svg class="arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 13L13 3M3 3H13V13" stroke="currentColor" stroke-width="1.2" /></svg></span></button>
+      <div class="form-status" role="status" aria-live="polite" tabindex="-1"></div>
+      <noscript><p style="font-size:.8rem;margin-top:18px">{enabled ? 'This form works without JavaScript. Your browser will show a confirmation page after submission; a connection or server error means delivery is unconfirmed.' : 'Submissions are currently disabled.'}</p></noscript>
+    </form>
+  </div>
+  <aside class="form-aside"><h2>{isMusic ? 'A note before we play.' : 'A note before we begin.'}</h2>{isMusic ? <><p>Enquiries are subject to availability and confirmation. Sending an enquiry does not confirm a booking.</p><p>Wharton performs as a frontline musician with The Marmalade Jammers. Full-band arrangements are coordinated with the band leadership team.</p><p>Start times should use the local time at your event location.</p></> : <><p>Live consultations and asynchronous feedback. A maximum of five active clients per month.</p><p>Prices are provided upon enquiry. Scope, editing, and feedback are agreed before payment.</p><p>No admissions guarantees, ghostwriting, or fabricated experiences. Your work remains your own.</p><p>Applicant information is handled confidentially. Please do not submit sensitive personal records.</p></>}</aside>
+</div>
+<script>
+  document.querySelectorAll<HTMLFormElement>('[data-enquiry-form]').forEach(form => {
+    form.addEventListener('submit', async event => {
+      event.preventDefault();
+      const status = form.querySelector<HTMLElement>('.form-status');
+      const button = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+      if (!status || !button) return;
+      if (form.dataset.enabled !== 'true') { status.textContent = 'Submissions are not enabled yet. Nothing has been sent.'; status.focus(); return; }
+      if (!form.reportValidity()) return;
+      button.disabled = true;
+      status.textContent = 'Sending your enquiry…';
+      try {
+        const data = new URLSearchParams();
+        new FormData(form).forEach((value, key) => data.append(key, String(value)));
+        const response = await fetch('/', { method: 'POST', headers: {'Content-Type': 'application/x-www-form-urlencoded'}, body: data.toString() });
+        if (!response.ok) throw new Error('Submission failed');
+        window.location.assign('/thank-you/');
+      } catch {
+        status.textContent = 'Your enquiry could not be confirmed. Please check your connection and try again. Avoid submitting sensitive information.';
+        status.focus();
+        button.disabled = false;
+      }
+    });
+  });
+</script>

@@ -1,0 +1,69 @@
+---
+import '../styles/global.css';
+import { navigation, site } from '../data/site';
+interface Props { title: string; description?: string; dark?: boolean; }
+const { title, description = site.description, dark = false } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const image = new URL('/social.png', Astro.site);
+const isActive = (href: string) => Astro.url.pathname.startsWith(href);
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <script is:inline>document.documentElement.classList.add('has-js');</script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title === 'Home' ? 'Wharton Chan — Medicine, Science & Swing' : `${title} — Wharton Chan`}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="theme-color" content={dark ? '#202522' : '#f6f4ed'} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={`${title === 'Home' ? 'Medicine, Science & Swing' : title} — Wharton Chan`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={image} />
+    <meta property="og:image:alt" content="Wharton Chan — Healing through Medicine. Connecting through Music." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script type="application/ld+json" set:html={JSON.stringify({ '@context': 'https://schema.org', '@type': 'Person', name: 'Wharton Chan', honorificPrefix: 'Dr.', url: Astro.site, description: site.description, knowsAbout: ['Medicine', 'Genomics', 'Jazz', 'Admissions mentorship'] })} />
+  </head>
+  <body class:list={[{ 'dark-page': dark }]}>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="wordmark" href="/" aria-label="Wharton Chan home">wharton chan<span class="wordmark-dot">.</span></a>
+        <button class="menu-toggle" aria-expanded="false" aria-controls="site-navigation"><span>Menu</span><span class="menu-icon" aria-hidden="true"></span></button>
+        <nav id="site-navigation" aria-label="Main navigation">
+          {navigation.map(item => <a href={item.href} aria-current={isActive(item.href) ? 'page' : undefined}>{item.label}</a>)}
+          <a class="nav-book" href="/book/">Book a Performance <span aria-hidden="true"><svg class="arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 13L13 3M3 3H13V13" stroke="currentColor" stroke-width="1.2" /></svg></span></a>
+        </nav>
+      </div>
+    </header>
+    <main id="main"><slot /></main>
+    <footer class="site-footer">
+      <div class="container footer-top">
+        <div><a class="wordmark" href="/">wharton chan<span class="wordmark-dot">.</span></a><p>Medicine. Science. A little swing.</p></div>
+        <div class="footer-links"><a href="/medicine/">Research & collaboration <svg class="arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 13L13 3M3 3H13V13" stroke="currentColor" stroke-width="1.2" /></svg></a><a href="/book/">Performance bookings <svg class="arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 13L13 3M3 3H13V13" stroke="currentColor" stroke-width="1.2" /></svg></a><a href="/admissions/book/">Admissions enquiries <svg class="arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 13L13 3M3 3H13V13" stroke="currentColor" stroke-width="1.2" /></svg></a></div>
+        <div class="footer-location"><span class="status-dot" /> Based in Singapore<br /><a href="/contact/">Get in touch <svg class="arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 13L13 3M3 3H13V13" stroke="currentColor" stroke-width="1.2" /></svg></a></div>
+      </div>
+      <div class="container footer-bottom"><span>© {new Date().getFullYear()} Wharton Chan</span><span>For connection, curiosity, and the work ahead.</span><a href="/privacy/">Privacy</a></div>
+      <p class="container medical-note">This website shares professional and educational work. Its content does not constitute individualized medical advice.</p>
+    </footer>
+    <script>
+      const button = document.querySelector<HTMLButtonElement>('.menu-toggle');
+      const navigation = document.querySelector<HTMLElement>('#site-navigation');
+      button?.addEventListener('click', () => {
+        const open = button.getAttribute('aria-expanded') !== 'true';
+        button.setAttribute('aria-expanded', String(open));
+        navigation?.classList.toggle('is-open', open);
+      });
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && button?.getAttribute('aria-expanded') === 'true') {
+          button.setAttribute('aria-expanded', 'false');
+          navigation?.classList.remove('is-open');
+          button.focus();
+        }
+      });
+    </script>
+  </body>
+</html>
